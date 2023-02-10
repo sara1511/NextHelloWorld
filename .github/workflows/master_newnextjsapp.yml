@@ -20,7 +20,7 @@ env:
   AZURE_WEBAPP_NAME: NewNextJSApp # set this to your application's name
   AZURE_WEBAPP_SLOT_NAME: Production # set this to your application's slot name
   AZURE_WEBAPP_PACKAGE_PATH: "." # set this to the path to your web app project, defaults to the repository root
-  NODE_VERSION: "14.x" # set this to the node version to use
+  NODE_VERSION: "16.x" # set this to the node version to use
   ZIP_PACKAGE_NAME: "NewNextJSApp-release.zip"
 
 jobs:
@@ -42,7 +42,9 @@ jobs:
           # npm run test --if-present
 
       - name: Zip artifact to upload
-        run: zip -r ${{ env.ZIP_PACKAGE_NAME }} ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+        run: |
+          rm -rf ./node_modules
+          zip -r ${{ env.ZIP_PACKAGE_NAME }} ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
