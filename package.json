@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start -p 8080",
+    "start:server": "NODE_ENV=production node server.js",
     "export": "next export"
   },
   "dependencies": {
